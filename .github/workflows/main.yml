@@ -1,63 +1,33 @@
-            - name: Newman Action
-  # You may pin to the exact commit or the version.
-  # uses: matt-ball/newman-action@170d252f10d199d75d6be4c739b48a3bd5f15ece
-  uses: matt-ball/newman-action@v2.0.0
-  with:
-    # Postman API key
-    apiKey: # optional
-    # Collection to use
-    collection: 
-    # Environment to use
-    environment: # optional
-    # Environment variables
-    envVar: # optional
-    # Globals to use
-    globals: # optional
-    # Global variables
-    globalVar: # optional
-    # Number of iterations to run on the collection
-    iterationCount: # optional
-    # Path to CSV or JSON data file
-    iterationData: # optional
-    # Name/ID of folders to run instead of entire collection
-    folder: # optional
-    # Path to be used as working directory
-    workingDir: # optional
-    # Allow reading files outside of working directory
-    insecureFileRead: # optional
-    # Time to wait for the collection run to complete
-    timeout: # optional
-    # Time to wait for scripts to return a response
-    timeoutRequest: # optional
-    # Time to wait for scripts to return a response
-    timeoutScript: # optional
-    # Time to wait between subsequent requests
-    delayRequest: # optional
-    # Follow 3xx responses
-    ignoreRedirects: # optional
-    # Disable SSL verification and allow self-signed SSL
-    insecure: # optional
-    # Stop collection run gracefully on error
-    bail: # optional
-    # Always exit cleanly
-    suppressExitCode: # optional
-    # Reporter to use
-    reporters: # optional, default is ["cli"]
-    # Reporter options
-    reporter: # optional
-    # Modify colored CLI output
-    color: # optional
-    # Path to public client certificate
-    sslClientCert: # optional
-    # Path to secret client key file
-    sslClientKey: # optional
-    # Secret client key passphrase
-    sslClientPassphrase: # optional
-    # The path to the client certificate configuration list file.
-    sslClientCertList: # optional
-    # The path to the file, that holds one or more trusted CA certificates in PEM format.
-    sslExtraCaCerts: # optional
-    # Specify the custom requesting agents to be used when performing HTTP and HTTPS requests respectively.
-    requestAgents: # optional
-    # Pass a CookieJar file path as string to this property that will be deserialized using tough-cookie.
-    cookieJar: # optional
+name: Run API Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Install Newman HTML Reporter
+        run: npm install -g newman-reporter-htmlextra
+
+      - name: Run Postman Collection
+        run: |
+          newman run Outback_Full_Order_Flow.postman_collection.json \
+            --reporters cli,junit,json,htmlextra \
+            --reporter-junit-export junitReport.xml \
+            --reporter-htmlextra-export testReport.html
+
+      - name: Upload Newman HTML Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: newman-report
+          path: testReport.html
