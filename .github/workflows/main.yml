@@ -1,4 +1,4 @@
-tname: Run API Tests
+name: Run API Tests
 
 on:
   push:
