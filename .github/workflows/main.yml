@@ -21,7 +21,7 @@ jobs:
 
       - name: Run Postman Collection
         run: |
-          newman run Outback_Full_Order_Flow.postman_collection.json \
+          newman run collection.json \
             --reporters cli,junit,json,htmlextra \
             --reporter-junit-export junitReport.xml \
             --reporter-htmlextra-export testReport.html
