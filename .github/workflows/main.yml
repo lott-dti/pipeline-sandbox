@@ -47,7 +47,7 @@ jobs:
         if: success() || failure()
         with:
           name: Postman Tests            # Name of the check run which will be created
-          path: junitReport.xml          # Path to test results
+          path: 'junitReport.xml'          # Path to test results
           reporter: jest-junit
 
       - name: Test Report 2
