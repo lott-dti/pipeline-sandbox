@@ -27,7 +27,7 @@ jobs:
         run: |
           newman run collection.json \
             --reporters cli,junit,json,htmlextra \
-            --reporter-junit-export junitReport.xml \
+            --reporter-junit-export ./ \
             --reporter-htmlextra-export testReport.html
 
       - name: Upload Newman HTML Report
