@@ -42,10 +42,11 @@ jobs:
           name: newman-junit-report
           path: junitReport.xml
 
+      - name: ls
+        run: ls
+
       - name: Decompress
-        run: |
-            ls \
-            unzip newman-junit-report.zip -d ./
+        run: unzip newman-junit-report.zip -d ./
           
       - name: Publish Test Results
         uses: mikepenz/action-junit-report@v4
