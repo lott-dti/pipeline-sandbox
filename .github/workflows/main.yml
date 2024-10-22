@@ -45,7 +45,7 @@ jobs:
       - name: Decompress
         uses: TonyBogdanov/zip@1.0
         with:
-            args: unzip -qq newman-junit-report.zip -d junitReport
+            args: unzip -qq newman-junit-report.zip -d junitReport.xml
           
       - name: Publish Test Results
         uses: mikepenz/action-junit-report@v4
