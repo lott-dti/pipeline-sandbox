@@ -42,10 +42,16 @@ jobs:
           name: newman-junit-report
           path: junitReport.xml
 
-      - name: Test Report
+      - name: Test Report 1
         uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
           name: Postman Tests            # Name of the check run which will be created
           path: junitReport.xml          # Path to test results
-          reporter: jest-junit 
+          reporter: jest-junit
+
+      - name: Test Report 2
+        uses: mikepenz/action-junit-report@v4
+        if: success() || failure()
+        with:
+          report_paths: 'junitReport.xml'
