@@ -43,9 +43,7 @@ jobs:
           path: junitReport.xml
 
       - name: Decompress
-        uses: TonyBogdanov/zip@1.0
-        with:
-            args: unzip -qq ./newman-junit-report.zip -d ./
+        run: unzip
           
       - name: Publish Test Results
         uses: mikepenz/action-junit-report@v4
