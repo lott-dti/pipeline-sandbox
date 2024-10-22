@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Newman
         run: npm install -g newman
@@ -31,13 +31,13 @@ jobs:
             --reporter-htmlextra-export testReport.html
 
       - name: Upload Newman HTML Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: newman-report
           path: testReport.html
 
       - name: Upload JUnit Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: newman-junit-report
           path: junitReport.xml
